@@ -1,0 +1,64 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Post {
+  """Id of the User"""
+  userId: Int!
+
+  """Id of the Post"""
+  id: Int!
+
+  """Title of the Post"""
+  title: String!
+
+  """Body of the Post"""
+  body: String!
+}
+
+type PostsConnection {
+  totlaCount: Int!
+  cursor: String
+  hasMore: Boolean!
+  posts: [Post!]!
+}
+
+type Comment {
+  """Comment Id"""
+  id: Int!
+
+  """ Post Id"""
+  postId: Int!
+
+  """User Name of the Commenter"""
+  name: String!
+
+  """Email of the Commenter"""
+  email: String!
+
+  """Text of the Comment"""
+  body: String!
+}
+
+type CommentsConnection {
+  totlaCount: Int!
+  cursor: String
+  hasMore: Boolean!
+  comments: [Comment!]!
+}
+
+type Query {
+  posts(after: Float): PostsConnection!
+  post(id: Int!): Post!
+  comments(after: Float): CommentsConnection!
+  commentsBySearch(after: Float, input: String!, CommentSearch: CommentSearch!): CommentsConnection!
+}
+
+"""Property Type of the comment to searched """
+enum CommentSearch {
+  id
+  postId
+  name
+  email
+  body
+}

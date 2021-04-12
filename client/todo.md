@@ -1,0 +1,7 @@
+- display all posts
+- display a post with its comments
+  - a search box that filters the comments
+  - the search should be able to handle :
+    - name
+    - email
+    - body

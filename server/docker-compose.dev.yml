@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    image: interview/post-api
+    volumes:
+      - /usr/src/app/node_modules
+      - .:/usr/src/app
+    container_name: post-api
+    stdin_open: true
+    tty: true
+    ports:
+      - '3333:3000'
+    environment:
+      - PORT=3000
+  nginx:
+    image: interview/nginx
+    container_name: nginx
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
+    ports:
+      - '4000:80'
+    depends_on:
+      - api

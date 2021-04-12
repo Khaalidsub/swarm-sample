@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    image: post-client
+    container_name: post-client
+    ports:
+      - "4444:3000"
+    deploy:
+      replicas: 3
+  api:
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    image: post-api
+    container_name: post-api
+    environment:
+      - PORT=3000
+    ports:
+      - "3333:3000"
+    deploy:
+      replicas: 6
+  nginx:
+    image: post-nginx
+    container_name: nginx
+    depends_on:
+      - api
+      - client
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+    deploy:
+      replicas: 1
